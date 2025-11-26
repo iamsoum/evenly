@@ -1,4 +1,4 @@
-﻿-- ==================================================
+-- ==================================================
 
 -- Evenly App - SQLite schema
 
@@ -152,7 +152,7 @@ currency TEXT NOT NULL DEFAULT ‘CAD’,
 
 remaining_due REAL NOT NULL,  -- remaining amount owed (for partial payments)
 
-remaining_currency TEXT NOT NULL DEFAULT ‘CAD’,
+remaining_currency TEXT NOT NULL DEFAULT ‘CAD’
 
 );
 
@@ -180,7 +180,7 @@ to_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE RESTRICT, -- recipien
 
 amount REAL NOT NULL,
 
-currency TEXT NOT NULL DEFAULT ‘CAD’,
+currency TEXT NOT NULL DEFAULT ‘CAD’
 
 );
 
