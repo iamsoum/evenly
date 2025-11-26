@@ -10,7 +10,6 @@ Evenly is a privacy-focused, desktop-native Java application for splitting and t
 Evenly is a desktop application designed to take the pain out of splitting bills and tracking debts with roommates, friends, or travel groups. Forget clunky spreadsheets, awkward reminders, or oversharing with third parties—Evenly combines ironclad privacy with a slick UI to make fair sharing effortless.
 
 - **Desktop-native (Java) — No web dependency**
-- **End-to-end encrypted onboarding (cipher tokens)**
 - **Smart splitting: equal, by item, by ratio/percentage, with adjustments**
 - **Automated email reminders**
 - **Group management and transaction dashboard**
@@ -30,22 +29,19 @@ Splitting expenses is a human problem, not just a math problem. Evenly is built 
 
 ## 🔒 Key Features
 
-1. **End-to-End Encrypted Onboarding**  
-   Share a secure cipher token to set up your group—no passwords shared, no centralized logins.
-
-2. **Advanced Expense Splitting**  
+1. **Advanced Expense Splitting**  
    - Equal
    - By item (select who ate/used what)
    - By percentage or ratio
    - Custom adjustments (get granular if you want)
 
-3. **Automated Reminders**  
+2. **Automated Reminders**  
    Never chase payments again. Set expenses, and Evenly sends individual reminders via email until they’re settled.
 
-4. **Local Data Storage**  
+3. **Local Data Storage**  
    Your expenses are saved to your device, not to a remote database (except for asynchronous, privacy-respecting email dispatch).
 
-5. **Clean, Modern UI**  
+4. **Clean, Modern UI**  
    Easy navigation for adding users, managing groups, checking balances, and splitting in seconds.
 
 ---
