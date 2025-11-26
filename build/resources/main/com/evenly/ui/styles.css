@@ -1,0 +1,206 @@
+/* Global Styles */
+.root {
+    -fx-font-family: 'Helvetica', 'Arial', sans-serif;
+    -fx-background-color: #f5f5f5;
+}
+
+/* Login Styles */
+.login-container {
+    -fx-background-color: white;
+}
+
+.title-label {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.subtitle-label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #666;
+}
+
+.primary-button {
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #555;
+}
+
+/* Dashboard Styles */
+.dashboard-container {
+    -fx-background-color: white;
+}
+
+.header {
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: transparent transparent #ddd transparent;
+}
+
+.logo-placeholder {
+    -fx-background-color: #ddd;
+    -fx-padding: 5 15;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}
+
+.section-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.summary-card {
+    -fx-background-color: #999;
+    -fx-padding: 20;
+    -fx-background-radius: 0; /* Boxy look from mockup */
+    -fx-border-color: #333;
+    -fx-border-width: 2;
+}
+
+.summary-label-small {
+    -fx-font-size: 10px;
+    -fx-text-fill: #333;
+}
+
+.summary-value {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.summary-progress {
+    -fx-padding: 10 0;
+}
+
+.action-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #333;
+    -fx-border-width: 1;
+    -fx-text-fill: #333;
+    -fx-padding: 5 10;
+}
+
+.groups-list {
+    -fx-padding: 10;
+    -fx-border-color: #333;
+    -fx-border-width: 2;
+}
+
+.section-subtitle {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.small-button {
+    -fx-background-color: #ddd;
+    -fx-background-radius: 10;
+    -fx-padding: 2 8;
+}
+
+.group-item {
+    -fx-padding: 5;
+}
+
+.group-icon-placeholder {
+    -fx-fill: #ddd;
+    -fx-stroke: #333;
+}
+
+.group-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.group-status-owe {
+    -fx-text-fill: #d32f2f; /* Red */
+    -fx-font-size: 12px;
+}
+
+.group-status-owned {
+    -fx-text-fill: #388e3c; /* Green */
+    -fx-font-size: 12px;
+}
+
+.group-status-settled {
+    -fx-text-fill: #666;
+    -fx-font-size: 12px;
+}
+
+/* Bottom Nav */
+.bottom-nav {
+    -fx-background-color: white;
+    -fx-border-color: #ddd transparent transparent transparent;
+}
+
+.nav-button {
+    -fx-background-color: #ddd;
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-cursor: hand;
+}
+
+.nav-button-active {
+    -fx-background-color: #8d6e63; /* Brownish from mockup */
+    -fx-text-fill: white;
+}
+
+.fab-button {
+    -fx-background-color: #ddd;
+    -fx-background-radius: 50%;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-font-size: 20px;
+}
+
+/* Create Group Page Styles */
+.create-group-container {
+    -fx-background-color: white;
+}
+
+.page-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.form-section {
+    -fx-padding: 10;
+}
+
+.form-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.section-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.member-list {
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+}
+
+.secondary-button {
+    -fx-background-color: #ddd;
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #bbb;
+}
+
