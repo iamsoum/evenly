@@ -143,4 +143,13 @@ public class GroupDashboardController {
       e.printStackTrace();
     }
   }
+
+  @FXML
+  private void handleCreateGroup() {
+    try {
+      EvenlyApp.setRoot("ui/create_group");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

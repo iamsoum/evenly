@@ -19,7 +19,7 @@
     <TextField fx:id="usernameField" promptText="Username" maxWidth="300"/>
     <PasswordField fx:id="passwordField" promptText="Password" maxWidth="300"/>
 
-    <Button text="Login" onAction="#handleLogin" styleClass="primary-button" maxWidth="300"/>
+    <Button text="Login" onAction="#handleLogin" styleClass="primary-button" maxWidth="300" defaultButton="true"/>
     
     <Hyperlink text="Register" onAction="#handleRegister" styleClass="link-text"/>
 </VBox>

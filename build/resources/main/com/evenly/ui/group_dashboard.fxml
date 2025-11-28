@@ -65,7 +65,7 @@
         <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
         <Button text="🏠 Home" onAction="#handleHome" styleClass="nav-button"/>
         <Button text="👥 Friends" styleClass="nav-button"/>
-        <Button text="+" styleClass="fab-button"/>
+        <Button text="+" onAction="#handleCreateGroup" styleClass="fab-button"/>
         <Button text="📈 Activity" styleClass="nav-button"/>
         <Button text="👤 Account" styleClass="nav-button"/>
     </HBox>

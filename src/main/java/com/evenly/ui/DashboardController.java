@@ -33,15 +33,13 @@ public class DashboardController {
 
     // Add click listener to navigate to group dashboard
     groupsListView.setOnMouseClicked(event -> {
-      if (event.getClickCount() == 1) {
-        Group selectedGroup = groupsListView.getSelectionModel().getSelectedItem();
-        if (selectedGroup != null) {
-          try {
-            GroupDashboardController.setSelectedGroupId(selectedGroup.getId());
-            EvenlyApp.setRoot("ui/group_dashboard");
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
+      Group selectedGroup = groupsListView.getSelectionModel().getSelectedItem();
+      if (selectedGroup != null) {
+        try {
+          GroupDashboardController.setSelectedGroupId(selectedGroup.getId());
+          EvenlyApp.setRoot("ui/group_dashboard");
+        } catch (IOException e) {
+          e.printStackTrace();
         }
       }
     });

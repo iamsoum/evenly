@@ -28,12 +28,7 @@
             <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
 
             <!-- Dashboard Title -->
-            <HBox alignment="CENTER_LEFT">
-                <Region HBox.hgrow="ALWAYS"/>
-                <Label text="Dashboard" styleClass="section-title"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button text="🔍" styleClass="icon-button"/>
-            </HBox>
+            <Label text="Dashboard" styleClass="dashboard-title"/>
 
             <HBox spacing="20">
                 <!-- Summary Card -->

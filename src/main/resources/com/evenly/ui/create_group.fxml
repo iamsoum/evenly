@@ -26,11 +26,11 @@
 
     <!-- Add Members Section -->
     <VBox spacing="10" styleClass="form-section">
-        <Label text="Add Members" styleClass="section-label"/>
+        <Label text="Add Member by Email:" styleClass="form-label"/>
         
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <TextField fx:id="emailField" promptText="Enter user email" HBox.hgrow="ALWAYS"/>
-            <Button text="Add" onAction="#handleAddMember" styleClass="primary-button"/>
+        <HBox spacing="10">
+            <TextField fx:id="emailField" promptText="Enter email" HBox.hgrow="ALWAYS"/>
+            <Button text="Add" onAction="#handleAddMember" styleClass="primary-button" defaultButton="true"/>
         </HBox>
 
         <Label text="Members:" styleClass="form-label"/>
