@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
@@ -19,7 +20,7 @@
         <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
         <Label text="LOGO" styleClass="logo-placeholder"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button text="⚙" styleClass="icon-button"/>
+        <Button text="🚪 Logout" onAction="#handleLogout" styleClass="icon-button"/>
     </HBox>
 
     <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="content-scroll-pane">
@@ -66,36 +67,7 @@
                         <Button text="Add +" onAction="#handleCreateGroup" styleClass="small-button"/>
                     </HBox>
                     
-                    <VBox spacing="10">
-                        <HBox styleClass="group-item" spacing="10" alignment="CENTER_LEFT">
-                            <Rectangle width="50" height="50" styleClass="group-icon-placeholder"/>
-                            <VBox>
-                                <Label text="Plebes Expenditure" styleClass="group-name"/>
-                                <Label text="You owe $400" styleClass="group-status-owe"/>
-                            </VBox>
-                        </HBox>
-                        <HBox styleClass="group-item" spacing="10" alignment="CENTER_LEFT">
-                            <Rectangle width="50" height="50" styleClass="group-icon-placeholder"/>
-                            <VBox>
-                                <Label text="Fall Semester Trip" styleClass="group-name"/>
-                                <Label text="You are Owned $398" styleClass="group-status-owned"/>
-                            </VBox>
-                        </HBox>
-                        <HBox styleClass="group-item" spacing="10" alignment="CENTER_LEFT">
-                            <Rectangle width="50" height="50" styleClass="group-icon-placeholder"/>
-                            <VBox>
-                                <Label text="Housemates" styleClass="group-name"/>
-                                <Label text="You owe $10" styleClass="group-status-owe"/>
-                            </VBox>
-                        </HBox>
-                        <HBox styleClass="group-item" spacing="10" alignment="CENTER_LEFT">
-                            <Rectangle width="50" height="50" styleClass="group-icon-placeholder"/>
-                            <VBox>
-                                <Label text="Goa Trip" styleClass="group-name"/>
-                                <Label text="Settled Up" styleClass="group-status-settled"/>
-                            </VBox>
-                        </HBox>
-                    </VBox>
+                    <ListView fx:id="groupsListView" styleClass="groups-listview" VBox.vgrow="ALWAYS"/>
                 </VBox>
             </HBox>
         </VBox>
@@ -109,7 +81,6 @@
         <Button text="+" onAction="#handleCreateGroup" styleClass="fab-button"/>
         <Button text="📈 Activity" styleClass="nav-button"/>
         <Button text="👤 Account" styleClass="nav-button"/>
-        <Button text="🚪 Logout" onAction="#handleLogout" styleClass="nav-button"/>
     </HBox>
 
 </VBox>

@@ -209,3 +209,17 @@
     -fx-background-color: #bbb;
 }
 
+.groups-listview {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.groups-listview .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.groups-listview .list-cell:hover {
+    -fx-background-color: #f0f0f0;
+}
+

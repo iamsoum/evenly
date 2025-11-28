@@ -75,4 +75,23 @@ public class GroupService {
     }
     return members;
   }
+
+  public List<Group> getAllGroups() throws SQLException {
+    List<Group> groups = new ArrayList<>();
+    try (Connection conn = DriverManager.getConnection(DB_URL)) {
+      String query = "SELECT id, name, expense, expense_currency, description FROM groups";
+      try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+          groups.add(new Group(
+              rs.getInt("id"),
+              rs.getString("name"),
+              rs.getDouble("expense"),
+              rs.getString("expense_currency"),
+              rs.getString("description")));
+        }
+      }
+    }
+    return groups;
+  }
 }
