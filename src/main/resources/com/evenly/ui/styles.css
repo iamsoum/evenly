@@ -223,3 +223,66 @@
     -fx-background-color: #f0f0f0;
 }
 
+/* Group Dashboard Styles */
+.group-info-panel {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+}
+
+.group-icon-large {
+    -fx-font-size: 64px;
+}
+
+.group-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.action-button {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #333;
+    -fx-font-size: 12px;
+    -fx-padding: 8 12;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: #e0e0e0;
+}
+
+.chart-placeholder {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-padding: 20;
+    -fx-alignment: center;
+}
+
+.placeholder-text {
+    -fx-text-fill: #999;
+    -fx-font-style: italic;
+}
+
+.transactions-panel {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+}
+
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.transactions-listview {
+    -fx-background-color: transparent;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+}
+

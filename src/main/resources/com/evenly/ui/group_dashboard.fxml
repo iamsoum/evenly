@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evenly.ui.GroupDashboardController" stylesheets="@styles.css" styleClass="dashboard-container" prefWidth="800" prefHeight="600">
+    
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" styleClass="header" spacing="10">
+        <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+        <Label text="LOGO" styleClass="logo-placeholder"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="🚪 Logout" onAction="#handleLogout" styleClass="icon-button"/>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="content-scroll-pane">
+        <HBox spacing="20" styleClass="content-area">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+            <!-- Left Panel - Group Info -->
+            <VBox spacing="15" styleClass="group-info-panel" HBox.hgrow="NEVER" prefWidth="400">
+                <!-- Group Icon and Name -->
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Label fx:id="groupIconLabel" text="📁" styleClass="group-icon-large"/>
+                    <VBox>
+                        <Label fx:id="groupNameLabel" text="Group Name" styleClass="group-title"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Action Buttons Row 1 -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="Choose Icon" onAction="#handleChooseIcon" styleClass="action-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="Settle Up" styleClass="action-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="Balance" styleClass="action-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+
+                <!-- Action Buttons Row 2 -->
+                <HBox spacing="10" alignment="CENTER">
+                    <Button text="Add Transactions" styleClass="primary-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="Send Reminder" styleClass="primary-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+
+                <!-- Chart Placeholder -->
+                <VBox styleClass="chart-placeholder" VBox.vgrow="ALWAYS">
+                    <Label text="Chart will go here" styleClass="placeholder-text"/>
+                </VBox>
+            </VBox>
+
+            <!-- Right Panel - Transactions -->
+            <VBox spacing="10" styleClass="transactions-panel" HBox.hgrow="ALWAYS">
+                <Label text="Transactions" styleClass="section-title"/>
+                <ListView fx:id="transactionsListView" styleClass="transactions-listview" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </HBox>
+    </ScrollPane>
+
+    <!-- Bottom Navigation -->
+    <HBox alignment="CENTER" spacing="20" styleClass="bottom-nav">
+        <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+        <Button text="🏠 Home" onAction="#handleHome" styleClass="nav-button"/>
+        <Button text="👥 Friends" styleClass="nav-button"/>
+        <Button text="+" styleClass="fab-button"/>
+        <Button text="📈 Activity" styleClass="nav-button"/>
+        <Button text="👤 Account" styleClass="nav-button"/>
+    </HBox>
+
+</VBox>

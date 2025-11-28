@@ -11,7 +11,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
-import javafx.scene.shape.Rectangle;
 import javafx.geometry.Pos;
 
 import java.io.IOException;
@@ -31,6 +30,21 @@ public class DashboardController {
     groupsListView.setItems(groups);
     groupsListView.setCellFactory(param -> new GroupListCell());
     loadUserGroups();
+
+    // Add click listener to navigate to group dashboard
+    groupsListView.setOnMouseClicked(event -> {
+      if (event.getClickCount() == 1) {
+        Group selectedGroup = groupsListView.getSelectionModel().getSelectedItem();
+        if (selectedGroup != null) {
+          try {
+            GroupDashboardController.setSelectedGroupId(selectedGroup.getId());
+            EvenlyApp.setRoot("ui/group_dashboard");
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    });
   }
 
   private void loadUserGroups() {
@@ -76,8 +90,8 @@ public class DashboardController {
         hbox.setAlignment(Pos.CENTER_LEFT);
         hbox.getStyleClass().add("group-item");
 
-        Rectangle icon = new Rectangle(50, 50);
-        icon.getStyleClass().add("group-icon-placeholder");
+        Label iconLabel = new Label(group.getIcon());
+        iconLabel.setStyle("-fx-font-size: 32px;");
 
         VBox textBox = new VBox();
         Label nameLabel = new Label(group.getName());
@@ -87,7 +101,7 @@ public class DashboardController {
         descLabel.getStyleClass().add("group-status-settled");
 
         textBox.getChildren().addAll(nameLabel, descLabel);
-        hbox.getChildren().addAll(icon, textBox);
+        hbox.getChildren().addAll(iconLabel, textBox);
 
         setGraphic(hbox);
       }

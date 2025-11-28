@@ -19,7 +19,7 @@ public class GroupService {
 
         try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
           if (generatedKeys.next()) {
-            return new Group(generatedKeys.getInt(1), name, 0.0, "CAD", description);
+            return new Group(generatedKeys.getInt(1), name, 0.0, "CAD", description, "📁");
           }
         }
       }
@@ -79,7 +79,7 @@ public class GroupService {
   public List<Group> getAllGroups() throws SQLException {
     List<Group> groups = new ArrayList<>();
     try (Connection conn = DriverManager.getConnection(DB_URL)) {
-      String query = "SELECT id, name, expense, expense_currency, description FROM groups";
+      String query = "SELECT id, name, expense, expense_currency, description, icon FROM groups";
       try (PreparedStatement pstmt = conn.prepareStatement(query)) {
         ResultSet rs = pstmt.executeQuery();
         while (rs.next()) {
@@ -88,10 +88,42 @@ public class GroupService {
               rs.getString("name"),
               rs.getDouble("expense"),
               rs.getString("expense_currency"),
-              rs.getString("description")));
+              rs.getString("description"),
+              rs.getString("icon")));
         }
       }
     }
     return groups;
+  }
+
+  public Group getGroupById(int groupId) throws SQLException {
+    try (Connection conn = DriverManager.getConnection(DB_URL)) {
+      String query = "SELECT id, name, expense, expense_currency, description, icon FROM groups WHERE id = ?";
+      try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setInt(1, groupId);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+          return new Group(
+              rs.getInt("id"),
+              rs.getString("name"),
+              rs.getDouble("expense"),
+              rs.getString("expense_currency"),
+              rs.getString("description"),
+              rs.getString("icon"));
+        }
+      }
+    }
+    return null;
+  }
+
+  public void updateGroupIcon(int groupId, String icon) throws SQLException {
+    try (Connection conn = DriverManager.getConnection(DB_URL)) {
+      String update = "UPDATE groups SET icon = ? WHERE id = ?";
+      try (PreparedStatement pstmt = conn.prepareStatement(update)) {
+        pstmt.setString(1, icon);
+        pstmt.setInt(2, groupId);
+        pstmt.executeUpdate();
+      }
+    }
   }
 }

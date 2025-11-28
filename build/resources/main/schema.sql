@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS groups (
     name TEXT NOT NULL,
     expense REAL DEFAULT 0.0,
     expense_currency TEXT DEFAULT 'CAD',
-    description TEXT
+    description TEXT,
+    icon TEXT DEFAULT '📁'
 );
 
 -- ------------------
