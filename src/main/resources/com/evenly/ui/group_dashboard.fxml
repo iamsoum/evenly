@@ -42,7 +42,7 @@
 
                 <!-- Action Buttons Row 2 -->
                 <HBox spacing="10" alignment="CENTER">
-                    <Button text="Add Transactions" styleClass="primary-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="Add Expenses" onAction="#handleAddExpense" styleClass="primary-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                     <Button text="Send Reminder" styleClass="primary-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                 </HBox>
 

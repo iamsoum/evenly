@@ -2,13 +2,16 @@ package com.evenly.ui;
 
 import com.evenly.EvenlyApp;
 import com.evenly.models.Group;
+import com.evenly.models.Transaction;
 import com.evenly.services.GroupService;
+import com.evenly.services.TransactionService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -17,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class GroupDashboardController {
 
@@ -30,6 +34,7 @@ public class GroupDashboardController {
   private ListView<String> transactionsListView;
 
   private final GroupService groupService = new GroupService();
+  private final TransactionService transactionService = new TransactionService();
   private Group currentGroup;
   private static int selectedGroupId;
 
@@ -57,9 +62,24 @@ public class GroupDashboardController {
   }
 
   private void loadTransactions() {
-    // Placeholder for now - will be implemented later with actual transactions
-    transactionsListView.getItems().addAll(
-        "No transactions yet");
+    try {
+      List<Transaction> transactions = transactionService.getTransactionsByGroup(selectedGroupId);
+      transactionsListView.getItems().clear();
+
+      if (transactions.isEmpty()) {
+        transactionsListView.getItems().add("No expenses yet");
+      } else {
+        for (Transaction transaction : transactions) {
+          String displayText = String.format("%s - $%.2f",
+              transaction.getDescription(),
+              transaction.getAmount());
+          transactionsListView.getItems().add(displayText);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      transactionsListView.getItems().add("Error loading expenses");
+    }
   }
 
   @FXML
@@ -148,6 +168,16 @@ public class GroupDashboardController {
   private void handleCreateGroup() {
     try {
       EvenlyApp.setRoot("ui/create_group");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @FXML
+  private void handleAddExpense() {
+    try {
+      AddExpenseController.setCurrentGroupId(currentGroup.getId());
+      EvenlyApp.setRoot("ui/add_expense");
     } catch (IOException e) {
       e.printStackTrace();
     }

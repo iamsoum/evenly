@@ -5,7 +5,6 @@ import com.evenly.models.User;
 import com.evenly.services.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -55,7 +54,7 @@ public class LoginController {
   }
 
   private void showAlert(String title, String message) {
-    Alert alert = new Alert(AlertType.ERROR);
+    Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle(title);
     alert.setHeaderText(null);
     alert.setContentText(message);

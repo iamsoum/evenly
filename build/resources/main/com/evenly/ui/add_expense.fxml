@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evenly.ui.AddExpenseController" stylesheets="@styles.css" styleClass="dashboard-container" prefWidth="800" prefHeight="600">
+    
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" styleClass="header" spacing="10">
+        <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+        <Button text="←" onAction="#handleBack" styleClass="icon-button"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label text="Add Expense" styleClass="header-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="✓" onAction="#handleSave" styleClass="icon-button"/>
+    </HBox>
+
+    <!-- Content -->
+    <VBox spacing="30" styleClass="content-area" VBox.vgrow="ALWAYS">
+        <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+        <!-- Description Field -->
+        <VBox spacing="10">
+            <Label text="Description" styleClass="form-label"/>
+            <TextField fx:id="descriptionField" promptText="Enter a description" styleClass="expense-field"/>
+        </VBox>
+
+        <!-- Amount Field -->
+        <VBox spacing="10">
+            <Label text="Amount" styleClass="form-label"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="\$" styleClass="currency-label"/>
+                <TextField fx:id="amountField" promptText="0.00" styleClass="expense-field"/>
+            </HBox>
+        </VBox>
+
+        <!-- Split Button -->
+        <Button text="Paid by you and split equally" styleClass="split-button" maxWidth="Infinity"/>
+    </VBox>
+
+</VBox>

@@ -286,3 +286,38 @@
     -fx-border-width: 1;
 }
 
+/* Add Expense Page Styles */
+.header-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.expense-field {
+    -fx-font-size: 16px;
+    -fx-padding: 12;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+.currency-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #666;
+}
+
+.split-button {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+    -fx-padding: 15;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.split-button:hover {
+    -fx-background-color: #e8e8e8;
+}
+
