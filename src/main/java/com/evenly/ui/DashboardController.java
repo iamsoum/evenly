@@ -31,12 +31,11 @@ public class DashboardController {
     groupsListView.setCellFactory(param -> new GroupListCell());
     loadUserGroups();
 
-    // Add click listener to navigate to group dashboard
-    groupsListView.setOnMouseClicked(event -> {
-      Group selectedGroup = groupsListView.getSelectionModel().getSelectedItem();
-      if (selectedGroup != null) {
+    // Add selection listener to navigate to group dashboard on single click
+    groupsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue != null) {
         try {
-          GroupDashboardController.setSelectedGroupId(selectedGroup.getId());
+          GroupDashboardController.setSelectedGroupId(newValue.getId());
           EvenlyApp.setRoot("ui/group_dashboard");
         } catch (IOException e) {
           e.printStackTrace();
