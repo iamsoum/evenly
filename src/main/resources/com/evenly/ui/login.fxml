@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
@@ -12,10 +14,12 @@
     </padding>
 
     <Label text="Evenly" styleClass="title-label"/>
-    <Label text="Login or Register" styleClass="subtitle-label"/>
+    <Label text="Login" styleClass="subtitle-label"/>
 
     <TextField fx:id="usernameField" promptText="Username" maxWidth="300"/>
-    <TextField fx:id="emailField" promptText="Email" maxWidth="300"/>
+    <PasswordField fx:id="passwordField" promptText="Password" maxWidth="300"/>
 
     <Button text="Login" onAction="#handleLogin" styleClass="primary-button" maxWidth="300"/>
+    
+    <Hyperlink text="Register" onAction="#handleRegister" styleClass="link-text"/>
 </VBox>

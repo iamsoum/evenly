@@ -33,6 +33,11 @@
     -fx-background-color: #555;
 }
 
+.link-text {
+    -fx-text-fill: #333;
+    -fx-underline: true;
+}
+
 /* Dashboard Styles */
 .dashboard-container {
     -fx-background-color: white;
