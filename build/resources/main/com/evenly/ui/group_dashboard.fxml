@@ -37,7 +37,7 @@
                 <HBox spacing="10" alignment="CENTER">
                     <Button text="Choose Icon" onAction="#handleChooseIcon" styleClass="action-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                     <Button text="Settle Up" styleClass="action-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                    <Button text="Balance" styleClass="action-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="Add Members" onAction="#handleAddMembers" styleClass="action-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
                 </HBox>
 
                 <!-- Action Buttons Row 2 -->

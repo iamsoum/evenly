@@ -39,8 +39,13 @@
             </HBox>
         </VBox>
 
-        <!-- Split Button -->
-        <Button text="Paid by you and split equally" styleClass="split-button" maxWidth="Infinity"/>
+        <!-- Paid by and split section -->
+        <HBox spacing="8" alignment="CENTER_LEFT">
+            <Label text="Paid by" styleClass="split-text"/>
+            <Button fx:id="paidByButton" text="" onAction="#handlePaidByClick" styleClass="blank-button" prefWidth="100"/>
+            <Label text="and split" styleClass="split-text"/>
+            <Button fx:id="splitButton" text="" onAction="#handleSplitClick" styleClass="blank-button" prefWidth="100"/>
+        </HBox>
     </VBox>
 
 </VBox>

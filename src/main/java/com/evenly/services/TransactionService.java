@@ -9,16 +9,22 @@ import java.util.List;
 public class TransactionService {
   private static final String DB_URL = "jdbc:sqlite:evenly.db";
 
-  public Transaction createTransaction(int groupId, int payerId, String description, double amount, String currency)
+  public Transaction createTransaction(int groupId, int payerId, String description, double amount, String currency,
+      Integer splitStrategyId)
       throws SQLException {
     try (Connection conn = DriverManager.getConnection(DB_URL)) {
-      String insert = "INSERT INTO transactions (description, amount, currency, payer_id, group_id) VALUES (?, ?, ?, ?, ?)";
+      String insert = "INSERT INTO transactions (description, amount, currency, payer_id, group_id, split_strategy_id) VALUES (?, ?, ?, ?, ?, ?)";
       try (PreparedStatement pstmt = conn.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
         pstmt.setString(1, description);
         pstmt.setDouble(2, amount);
         pstmt.setString(3, currency);
         pstmt.setInt(4, payerId);
         pstmt.setInt(5, groupId);
+        if (splitStrategyId != null) {
+          pstmt.setInt(6, splitStrategyId);
+        } else {
+          pstmt.setNull(6, Types.INTEGER);
+        }
         pstmt.executeUpdate();
 
         try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {

@@ -3,17 +3,22 @@ package com.evenly.ui;
 import com.evenly.EvenlyApp;
 import com.evenly.models.Group;
 import com.evenly.models.Transaction;
+import com.evenly.models.User;
 import com.evenly.services.GroupService;
+import com.evenly.services.MembershipService;
 import com.evenly.services.TransactionService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -181,5 +186,85 @@ public class GroupDashboardController {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  @FXML
+  private void handleAddMembers() {
+    Stage modal = new Stage();
+    modal.initModality(Modality.APPLICATION_MODAL);
+    modal.setTitle("Add Member to Group");
+
+    VBox container = new VBox(15);
+    container.setPadding(new Insets(20));
+    container.setAlignment(Pos.CENTER);
+
+    Label title = new Label("Add Member by Email:");
+    title.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+    TextField emailField = new TextField();
+    emailField.setPromptText("Enter email");
+    emailField.setPrefWidth(300);
+
+    Label membersLabel = new Label("Members:");
+    membersLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+
+    javafx.scene.control.ListView<String> membersList = new javafx.scene.control.ListView<>();
+    membersList.setPrefHeight(200);
+
+    // Load current members
+    try {
+      List<User> members = new MembershipService().getMembersOfGroup(selectedGroupId);
+      for (User member : members) {
+        membersList.getItems().add(member.getName() + " (" + member.getEmail() + ")");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    Button addButton = new Button("Add");
+    addButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
+    addButton.setOnAction(e -> {
+      String email = emailField.getText().trim();
+      if (email.isEmpty()) {
+        showAlert("Error", "Please enter an email address.");
+        return;
+      }
+
+      try {
+        MembershipService membershipService = new MembershipService();
+        User user = membershipService.getUserByEmail(email);
+
+        if (user == null) {
+          showAlert("Error", "User doesn't exist");
+          return;
+        }
+
+        // Add member to group
+        membershipService.addMemberToGroup(selectedGroupId, user.getId());
+        membersList.getItems().add(user.getName() + " (" + user.getEmail() + ")");
+        emailField.clear();
+
+      } catch (SQLException ex) {
+        showAlert("Error", "Failed to add member: " + ex.getMessage());
+      }
+    });
+
+    HBox inputRow = new HBox(10);
+    inputRow.setAlignment(Pos.CENTER);
+    inputRow.getChildren().addAll(emailField, addButton);
+
+    container.getChildren().addAll(title, inputRow, membersLabel, membersList);
+
+    Scene scene = new Scene(container, 400, 450);
+    modal.setScene(scene);
+    modal.showAndWait();
+  }
+
+  private void showAlert(String title, String message) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(title);
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    alert.showAndWait();
   }
 }
