@@ -2,6 +2,7 @@ package com.evenly.ui;
 
 import com.evenly.EvenlyApp;
 import com.evenly.models.User;
+import com.evenly.services.SessionManager;
 import com.evenly.services.UserService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -36,6 +37,7 @@ public class LoginController {
         showAlert("Login Failed", "Invalid username or password.");
         return;
       }
+      SessionManager.setCurrentUser(user);
       EvenlyApp.setRoot("ui/dashboard");
     } catch (SQLException | java.io.IOException e) {
       e.printStackTrace();

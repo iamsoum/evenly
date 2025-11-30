@@ -96,6 +96,30 @@ public class GroupService {
     return groups;
   }
 
+  public List<Group> getGroupsByUser(int userId) throws SQLException {
+    List<Group> groups = new ArrayList<>();
+    try (Connection conn = DriverManager.getConnection(DB_URL)) {
+      String query = "SELECT g.id, g.name, g.expense, g.expense_currency, g.description, g.icon " +
+          "FROM groups g " +
+          "JOIN memberships m ON g.id = m.group_id " +
+          "WHERE m.user_id = ?";
+      try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        pstmt.setInt(1, userId);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+          groups.add(new Group(
+              rs.getInt("id"),
+              rs.getString("name"),
+              rs.getDouble("expense"),
+              rs.getString("expense_currency"),
+              rs.getString("description"),
+              rs.getString("icon")));
+        }
+      }
+    }
+    return groups;
+  }
+
   public Group getGroupById(int groupId) throws SQLException {
     try (Connection conn = DriverManager.getConnection(DB_URL)) {
       String query = "SELECT id, name, expense, expense_currency, description, icon FROM groups WHERE id = ?";

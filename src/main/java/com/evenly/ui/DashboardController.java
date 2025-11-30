@@ -2,16 +2,19 @@ package com.evenly.ui;
 
 import com.evenly.EvenlyApp;
 import com.evenly.models.Group;
+import com.evenly.models.User;
 import com.evenly.services.GroupService;
+import com.evenly.services.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
-import javafx.geometry.Pos;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,6 +25,9 @@ public class DashboardController {
   @FXML
   private ListView<Group> groupsListView;
 
+  @FXML
+  private Label welcomeLabel;
+
   private final GroupService groupService = new GroupService();
   private final ObservableList<Group> groups = FXCollections.observableArrayList();
 
@@ -29,6 +35,13 @@ public class DashboardController {
   private void initialize() {
     groupsListView.setItems(groups);
     groupsListView.setCellFactory(param -> new GroupListCell());
+
+    // Set welcome message with username
+    User currentUser = SessionManager.getCurrentUser();
+    if (currentUser != null && welcomeLabel != null) {
+      welcomeLabel.setText("Welcome, " + currentUser.getName() + "!");
+    }
+
     loadUserGroups();
 
     // Add selection listener to navigate to group dashboard on single click
@@ -46,10 +59,11 @@ public class DashboardController {
 
   private void loadUserGroups() {
     try {
-      // For now, load all groups - in a real app, you'd get the current user's ID
-      // and load only their groups via memberships table
-      List<Group> userGroups = groupService.getAllGroups();
-      groups.setAll(userGroups);
+      User currentUser = SessionManager.getCurrentUser();
+      if (currentUser != null) {
+        List<Group> userGroups = groupService.getGroupsByUser(currentUser.getId());
+        groups.setAll(userGroups);
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }

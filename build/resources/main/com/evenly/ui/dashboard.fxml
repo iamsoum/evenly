@@ -16,11 +16,12 @@
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evenly.ui.DashboardController" stylesheets="@styles.css" styleClass="dashboard-container" prefWidth="800" prefHeight="600">
     
     <!-- Header -->
-    <HBox alignment="CENTER_LEFT" styleClass="header" spacing="10">
-        <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
-        <Label text="LOGO" styleClass="logo-placeholder"/>
+    <HBox styleClass="header" alignment="CENTER_LEFT" spacing="15">
+        <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+        <Label text="Evenly" styleClass="logo-placeholder"/>
+        <Label fx:id="welcomeLabel" text="Welcome!" style="-fx-font-size: 14px; -fx-text-fill: #666;"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button text="🚪 Logout" onAction="#handleLogout" styleClass="icon-button"/>
+        <Button text="Logout" onAction="#handleLogout" styleClass="primary-button"/>
     </HBox>
 
     <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="content-scroll-pane">
