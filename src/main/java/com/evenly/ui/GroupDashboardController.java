@@ -38,6 +38,9 @@ public class GroupDashboardController {
   @FXML
   private ListView<String> transactionsListView;
 
+  @FXML
+  private ListView<String> membersListView;
+
   private final GroupService groupService = new GroupService();
   private final TransactionService transactionService = new TransactionService();
   private Group currentGroup;
@@ -52,6 +55,7 @@ public class GroupDashboardController {
   private void initialize() {
     loadGroupData();
     loadTransactions();
+    loadGroupMembers();
   }
 
   private void loadGroupData() {
@@ -84,6 +88,26 @@ public class GroupDashboardController {
     } catch (SQLException e) {
       e.printStackTrace();
       transactionsListView.getItems().add("Error loading expenses");
+    }
+  }
+
+  private void loadGroupMembers() {
+    try {
+      MembershipService membershipService = new MembershipService();
+      List<User> members = membershipService.getMembersOfGroup(selectedGroupId);
+      membersListView.getItems().clear();
+
+      if (members.isEmpty()) {
+        membersListView.getItems().add("No members yet");
+      } else {
+        for (User member : members) {
+          String displayText = member.getName() + " (" + member.getEmail() + ")";
+          membersListView.getItems().add(displayText);
+        }
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      membersListView.getItems().add("Error loading members");
     }
   }
 

@@ -52,10 +52,23 @@
                 </VBox>
             </VBox>
 
-            <!-- Right Panel - Transactions -->
+            <!-- Right Panel - Transactions and Members -->
             <VBox spacing="10" styleClass="transactions-panel" HBox.hgrow="ALWAYS">
-                <Label text="Transactions" styleClass="section-title"/>
-                <ListView fx:id="transactionsListView" styleClass="transactions-listview" VBox.vgrow="ALWAYS"/>
+                <!-- Transactions Section (Top Half) -->
+                <VBox spacing="10" VBox.vgrow="ALWAYS">
+                    <Label text="Transactions" styleClass="section-title"/>
+                    <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS">
+                        <ListView fx:id="transactionsListView" styleClass="transactions-listview"/>
+                    </ScrollPane>
+                </VBox>
+                
+                <!-- Members Section (Bottom Half) -->
+                <VBox spacing="10" VBox.vgrow="ALWAYS">
+                    <Label text="Members" styleClass="section-title"/>
+                    <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS">
+                        <ListView fx:id="membersListView" styleClass="transactions-listview"/>
+                    </ScrollPane>
+                </VBox>
             </VBox>
         </HBox>
     </ScrollPane>

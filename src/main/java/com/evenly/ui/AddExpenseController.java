@@ -13,9 +13,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -157,11 +159,13 @@ public class AddExpenseController {
 
   private void showPercentageSplitModal() {
     Stage modal = new Stage();
-    modal.initModality(Modality.APPLICATION_MODAL);
+    modal.initOwner(splitButton.getScene().getWindow()); // Set owner to main window
+    modal.initModality(Modality.WINDOW_MODAL); // Use WINDOW_MODAL instead of APPLICATION_MODAL
     modal.setTitle("Percentage Split");
 
     VBox container = new VBox(15);
     container.setPadding(new Insets(20));
+    container.setPrefWidth(400); // Set preferred width
 
     Label title = new Label("Enter percentage for each member");
     title.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
@@ -177,8 +181,18 @@ public class AddExpenseController {
       int row = 0;
       for (User member : members) {
         Label nameLabel = new Label(member.getName() + ":");
-        TextField percentField = new TextField("0");
+        TextField percentField = new TextField();
+        percentField.setText("0");
         percentField.setPrefWidth(80);
+        percentField.setEditable(true);
+        percentField.setFocusTraversable(true);
+
+        // Select text when focused so it's easy to replace
+        percentField.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+          if (isNowFocused) {
+            Platform.runLater(percentField::selectAll);
+          }
+        });
 
         grid.add(nameLabel, 0, row);
         grid.add(percentField, 1, row);
@@ -198,7 +212,13 @@ public class AddExpenseController {
           boolean first = true;
 
           for (Map.Entry<User, TextField> entry : percentageFields.entrySet()) {
-            double percent = Double.parseDouble(entry.getValue().getText());
+            String text = entry.getValue().getText().trim();
+            if (text.isEmpty()) {
+              showErrorAlert(modal, "Please enter a percentage for " + entry.getKey().getName());
+              return;
+            }
+
+            double percent = Double.parseDouble(text);
             total += percent;
 
             if (!first)
@@ -209,7 +229,7 @@ public class AddExpenseController {
           jsonParams.append("}");
 
           if (Math.abs(total - 100.0) > 0.01) {
-            showAlert("Error", "Percentages must sum to 100%. Current total: " + total + "%");
+            showErrorAlert(modal, "Percentages must sum to 100%. Current total: " + total + "%");
             return;
           }
 
@@ -217,22 +237,38 @@ public class AddExpenseController {
           splitButton.setText("by percentage");
           modal.close();
         } catch (NumberFormatException ex) {
-          showAlert("Error", "Please enter valid numbers for all percentages.");
+          showErrorAlert(modal, "Please enter valid numbers for all percentages.");
         } catch (SQLException ex) {
           ex.printStackTrace();
-          showAlert("Error", "Failed to save split strategy: " + ex.getMessage());
+          String msg = ex.getMessage();
+          showErrorAlert(modal, "Failed to save split strategy: " + (msg != null ? msg : "Unknown database error"));
         }
       });
 
       container.getChildren().addAll(title, grid, saveButton);
     } catch (SQLException e) {
       e.printStackTrace();
-      showAlert("Error", "Failed to load group members: " + e.getMessage());
+      String msg = e.getMessage();
+      showErrorAlert(modal, "Failed to load group members: " + (msg != null ? msg : "Unknown database error"));
     }
 
-    Scene scene = new Scene(container, 350, 400);
+    Scene scene = new Scene(container);
     modal.setScene(scene);
+    // Ensure modal has a reasonable minimum size
+    modal.setMinWidth(350);
+    modal.setMinHeight(300);
     modal.showAndWait();
+  }
+
+  private void showErrorAlert(Stage owner, String message) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.initOwner(owner);
+    alert.setTitle("Error");
+    alert.setHeaderText(null);
+    alert.setContentText(message);
+    // Fix for empty alert dialogs on some platforms
+    alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+    alert.showAndWait();
   }
 
   @FXML
