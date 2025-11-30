@@ -8,13 +8,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.evenly.ui.GroupDashboardController" stylesheets="@styles.css" styleClass="dashboard-container" prefWidth="800" prefHeight="600">
     
     <!-- Header -->
     <HBox alignment="CENTER_LEFT" styleClass="header" spacing="10">
         <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
-        <Label text="LOGO" styleClass="logo-placeholder"/>
+        <ImageView fitHeight="32" preserveRatio="true">
+            <image>
+                <Image url="@../images/logo.png"/>
+            </image>
+        </ImageView>
         <Region HBox.hgrow="ALWAYS"/>
         <Button text="🚪 Logout" onAction="#handleLogout" styleClass="icon-button"/>
     </HBox>

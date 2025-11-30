@@ -21,6 +21,7 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,14 +133,8 @@ public class AddExpenseController {
     Button equalButton = new Button("Split Equally");
     equalButton.setStyle("-fx-font-size: 14px; -fx-padding: 15 30; -fx-min-width: 200px;");
     equalButton.setOnAction(e -> {
-      try {
-        selectedSplitStrategy = splitStrategyService.createSplitStrategy("EQUAL", null);
-        splitButton.setText("equally");
-        modal.close();
-      } catch (SQLException ex) {
-        ex.printStackTrace();
-        showAlert("Error", "Failed to create split strategy: " + ex.getMessage());
-      }
+      modal.close();
+      showEqualSplitModal();
     });
 
     // Percentage split button
@@ -154,6 +149,85 @@ public class AddExpenseController {
 
     Scene scene = new Scene(container, 350, 250);
     modal.setScene(scene);
+    modal.showAndWait();
+  }
+
+  private void showEqualSplitModal() {
+    Stage modal = new Stage();
+    modal.initOwner(splitButton.getScene().getWindow());
+    modal.initModality(Modality.WINDOW_MODAL);
+    modal.setTitle("Equal Split");
+
+    VBox container = new VBox(15);
+    container.setPadding(new Insets(20));
+    container.setPrefWidth(350);
+
+    Label title = new Label("Select members involved");
+    title.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+    VBox membersList = new VBox(10);
+    Map<User, CheckBox> memberChecks = new HashMap<>();
+
+    try {
+      List<User> members = membershipService.getMembersOfGroup(currentGroupId);
+      for (User member : members) {
+        CheckBox cb = new CheckBox(member.getName());
+        cb.setSelected(true); // Default to all selected
+        memberChecks.put(member, cb);
+        membersList.getChildren().add(cb);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      showErrorAlert(modal, "Failed to load members: " + e.getMessage());
+      return;
+    }
+
+    ScrollPane scrollPane = new ScrollPane(membersList);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setPrefHeight(200);
+    scrollPane.setStyle("-fx-background-color: transparent;");
+
+    Button saveButton = new Button("Save");
+    saveButton.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
+    saveButton.setOnAction(e -> {
+      List<Integer> selectedIds = new ArrayList<>();
+      for (Map.Entry<User, CheckBox> entry : memberChecks.entrySet()) {
+        if (entry.getValue().isSelected()) {
+          selectedIds.add(entry.getKey().getId());
+        }
+      }
+
+      if (selectedIds.isEmpty()) {
+        showErrorAlert(modal, "At least one member must be selected.");
+        return;
+      }
+
+      try {
+        // Create JSON params: {"participating_members": [1, 2, 3]}
+        StringBuilder jsonParams = new StringBuilder("{\"participating_members\": [");
+        for (int i = 0; i < selectedIds.size(); i++) {
+          jsonParams.append(selectedIds.get(i));
+          if (i < selectedIds.size() - 1) {
+            jsonParams.append(", ");
+          }
+        }
+        jsonParams.append("]}");
+
+        selectedSplitStrategy = splitStrategyService.createSplitStrategy("EQUAL", jsonParams.toString());
+        splitButton.setText("equally");
+        modal.close();
+      } catch (SQLException ex) {
+        ex.printStackTrace();
+        showErrorAlert(modal, "Failed to save split strategy: " + ex.getMessage());
+      }
+    });
+
+    container.getChildren().addAll(title, scrollPane, saveButton);
+
+    Scene scene = new Scene(container);
+    modal.setScene(scene);
+    modal.setMinWidth(300);
+    modal.setMinHeight(350);
     modal.showAndWait();
   }
 

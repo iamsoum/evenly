@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -18,7 +19,11 @@
     <!-- Header -->
     <HBox styleClass="header" alignment="CENTER_LEFT" spacing="15">
         <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
-        <Label text="Evenly" styleClass="logo-placeholder"/>
+        <ImageView fitHeight="32" preserveRatio="true">
+            <image>
+                <Image url="@../images/logo.png"/>
+            </image>
+        </ImageView>
         <Label fx:id="welcomeLabel" text="Welcome!" style="-fx-font-size: 14px; -fx-text-fill: #666;"/>
         <Region HBox.hgrow="ALWAYS"/>
         <Button text="Logout" onAction="#handleLogout" styleClass="primary-button"/>
