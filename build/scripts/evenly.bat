@@ -70,7 +70,7 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\evenly.jar;%APP_HOME%\lib\sqlite-jdbc-3.42.0.0.jar;%APP_HOME%\lib\slf4j-simple-2.0.7.jar;%APP_HOME%\lib\javafx-fxml-21.0.1-mac-aarch64.jar;%APP_HOME%\lib\javafx-controls-21.0.1-mac-aarch64.jar;%APP_HOME%\lib\slf4j-api-2.0.7.jar;%APP_HOME%\lib\javafx-graphics-21.0.1-mac-aarch64.jar;%APP_HOME%\lib\javafx-base-21.0.1-mac-aarch64.jar
+set CLASSPATH=%APP_HOME%\lib\evenly.jar;%APP_HOME%\lib\sqlite-jdbc-3.42.0.0.jar;%APP_HOME%\lib\slf4j-simple-2.0.7.jar;%APP_HOME%\lib\jbcrypt-0.4.jar;%APP_HOME%\lib\javafx-fxml-21.0.1-mac-aarch64.jar;%APP_HOME%\lib\javafx-controls-21.0.1-mac-aarch64.jar;%APP_HOME%\lib\slf4j-api-2.0.7.jar;%APP_HOME%\lib\javafx-graphics-21.0.1-mac-aarch64.jar;%APP_HOME%\lib\javafx-base-21.0.1-mac-aarch64.jar
 
 
 @rem Execute evenly

@@ -6,6 +6,7 @@ import com.evenly.models.Transaction;
 import com.evenly.models.User;
 import com.evenly.services.GroupService;
 import com.evenly.services.MembershipService;
+import com.evenly.services.SessionManager;
 import com.evenly.services.TransactionService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -53,6 +54,13 @@ public class GroupDashboardController {
 
   @FXML
   private void initialize() {
+    // Validate session
+    if (!SessionManager.isSessionValid()) {
+      handleLogout();
+      return;
+    }
+    SessionManager.refreshSession();
+
     loadGroupData();
     loadTransactions();
     loadGroupMembers();

@@ -33,14 +33,21 @@ public class DashboardController {
 
   @FXML
   private void initialize() {
-    groupsListView.setItems(groups);
-    groupsListView.setCellFactory(param -> new GroupListCell());
+    // Validate session
+    if (!SessionManager.isSessionValid()) {
+      handleLogout();
+      return;
+    }
+    SessionManager.refreshSession();
 
     // Set welcome message with username
     User currentUser = SessionManager.getCurrentUser();
     if (currentUser != null && welcomeLabel != null) {
       welcomeLabel.setText("Welcome, " + currentUser.getName() + "!");
     }
+
+    groupsListView.setItems(groups);
+    groupsListView.setCellFactory(param -> new GroupListCell());
 
     loadUserGroups();
 

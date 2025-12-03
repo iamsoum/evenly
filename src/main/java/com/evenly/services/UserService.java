@@ -1,6 +1,7 @@
 package com.evenly.services;
 
 import com.evenly.models.User;
+import org.mindrot.jbcrypt.BCrypt;
 import java.sql.*;
 
 public class UserService {
@@ -8,17 +9,20 @@ public class UserService {
 
   public User login(String username, String password) throws SQLException {
     try (Connection conn = DriverManager.getConnection(DB_URL)) {
-      String query = "SELECT id, name, email, default_group_id FROM users WHERE name = ? AND password = ?";
+      String query = "SELECT id, name, email, password, default_group_id FROM users WHERE name = ?";
       try (PreparedStatement pstmt = conn.prepareStatement(query)) {
         pstmt.setString(1, username);
-        pstmt.setString(2, password);
         ResultSet rs = pstmt.executeQuery();
         if (rs.next()) {
-          return new User(
-              rs.getInt("id"),
-              rs.getString("name"),
-              rs.getString("email"),
-              (Integer) rs.getObject("default_group_id"));
+          String hashedPassword = rs.getString("password");
+          // Verify password using BCrypt
+          if (BCrypt.checkpw(password, hashedPassword)) {
+            return new User(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("email"),
+                (Integer) rs.getObject("default_group_id"));
+          }
         }
       }
     }
@@ -52,7 +56,9 @@ public class UserService {
       try (PreparedStatement pstmt = conn.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS)) {
         pstmt.setString(1, username);
         pstmt.setString(2, email);
-        pstmt.setString(3, password);
+        // Hash password with BCrypt before storing
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        pstmt.setString(3, hashedPassword);
         pstmt.executeUpdate();
 
         try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
